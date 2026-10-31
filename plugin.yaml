@@ -1,0 +1,21 @@
+name: dual-web
+version: 0.2.0
+description: "把多个 Hermes web search provider 聚合成一次搜索：默认同时调用 DeepSeek 与 Firecrawl，按 URL 去重后轮流合并结果。只实现搜索，不实现正文抓取。"
+author: lrita
+license: MIT
+homepage: https://github.com/lrita/dual-web
+kind: backend
+manifest_version: 2
+provides_web_providers:
+  - dual-web
+requires_hermes: ">=0.22.0"
+requires_plugins:
+  - id: deepseek-search-fetch
+  - id: web-firecrawl
+config_schema:
+  providers:
+    type: list
+    default:
+      - deepseek
+      - firecrawl
+    description: "参与聚合的 Hermes web provider 名称，按顺序调用并轮流合并。默认 deepseek、firecrawl；可改为任意已注册的 provider，例如 exa、tavily、parallel、searxng。"
